@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
             return;
         }
         Alert.alert('Sucesso', 'Login realizado com sucesso!');
-        navigation.navigate('Home'); // Redireciona para a tela "Home"
+        navigation.navigate('Home'); 
     };
 
     return (
