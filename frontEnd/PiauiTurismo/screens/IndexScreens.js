@@ -29,7 +29,7 @@ const IndexScreen = () => {
         </TouchableOpacity>
 
         <Image
-          source={require('../assets/Logo1.png')}
+          source={require('../assets/logo.png')}
           style={[styles.logo, { top: 100 }]}
           resizeMode="contain"
         />

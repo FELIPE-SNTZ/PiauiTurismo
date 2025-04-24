@@ -25,8 +25,8 @@ export default function RegisterScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={[styles.header, { marginTop: 25 }]}>
-          <Image source={require('../assets/Logo1.png')} style={[styles.logo, { marginBottom: 5 }]} />
+        <View style={styles.header}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
           <Text style={styles.title}>Crie sua conta</Text>
         </View>
 
@@ -36,6 +36,7 @@ export default function RegisterScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Digite seu nome"
+              placeholderTextColor="#aaa"
               value={name}
               onChangeText={setName}
             />
@@ -45,6 +46,7 @@ export default function RegisterScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Digite seu e-mail"
+              placeholderTextColor="#aaa"
               keyboardType="email-address"
               autoCapitalize="none"
               value={email}
@@ -56,6 +58,7 @@ export default function RegisterScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Digite sua senha"
+              placeholderTextColor="#aaa"
               secureTextEntry
               value={password}
               onChangeText={setPassword}
@@ -66,6 +69,7 @@ export default function RegisterScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Confirme sua senha"
+              placeholderTextColor="#aaa"
               secureTextEntry
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -90,9 +94,7 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
-    justifyContent: 'center',
-    alignContent: 'center',
+    backgroundColor: '#FAF3E0',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -108,16 +110,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#D35400', 
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     padding: 25,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#E0E0E0',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -130,20 +132,20 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 8,
     fontSize: 16,
-    color: '#555',
+    color: '#6C3483', 
     fontWeight: '500',
   },
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#D35400', 
     borderRadius: 10,
     paddingHorizontal: 15,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#F9F9F9',
   },
   button: {
-    backgroundColor: '#333',
+    backgroundColor: '#F39C12', 
     height: 50,
     borderRadius: 25,
     justifyContent: 'center',
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF', 
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -161,11 +163,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   registerText: {
-    color: '#666',
+    color: '#6C3483',
     marginRight: 5,
   },
   registerLink: {
-    color: '#4285F4',
+    color: '#D35400', 
     fontWeight: 'bold',
   },
 });

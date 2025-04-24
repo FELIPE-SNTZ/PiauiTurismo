@@ -63,7 +63,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.headerContent}>
       <TouchableOpacity>
         <Image
-          source={require('../assets/Logo1.png')}
+          source={require('../assets/logo.png')}
           style={styles.logo}
         />
       </TouchableOpacity>

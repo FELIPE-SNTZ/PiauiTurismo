@@ -17,11 +17,12 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Image source={require('../assets/Logo1.png')} style={styles.logo} />
-            <Text style={styles.title}>Login</Text>
+            <Image source={require('../assets/logo.png')} style={styles.logo} />
+            <Text style={styles.title}>Bem-vindo ao OiPiauí</Text>
+            <Text style={styles.subtitle}>Explore as riquezas e belezas do Nordeste</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Nome"
+                placeholder="Nome de usuário"
                 placeholderTextColor="#aaa"
                 value={username}
                 onChangeText={setUsername}
@@ -38,13 +39,13 @@ export default function LoginScreen({ navigation }) {
                 style={[styles.button, loading && { backgroundColor: '#aaa' }]}
                 onPress={handleLogin}
                 disabled={loading} >
-                <Text style={styles.buttonText}>{loading ? 'Carregando...' : 'Login'}</Text>
+                <Text style={styles.buttonText}>{loading ? 'Carregando...' : 'Entrar'}</Text>
             </TouchableOpacity>
             <View style={styles.loginContainer}>
                 <Text style={styles.loginText}>Não possui uma conta?</Text>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Register')} >
-                    <Text style={styles.loginLink}>Faça seu Cadastro</Text>
+                    <Text style={styles.loginLink}>Cadastre-se</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -56,10 +57,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#FAF3E0', // Fundo bege claro, remetendo à areia
         padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
     },
     logo: {
         width: 150,
@@ -67,32 +66,39 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     title: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold',
+        color: '#D35400', // Laranja queimado, remetendo ao pôr do sol
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    subtitle: {
+        fontSize: 16,
+        color: '#6C3483', // Roxo suave, remetendo ao crepúsculo
         marginBottom: 20,
-        color: '#333',
+        textAlign: 'center',
     },
     input: {
         width: '100%',
         height: 50,
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         borderRadius: 8,
         paddingHorizontal: 15,
         marginBottom: 15,
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: '#D35400', // Laranja queimado para bordas
     },
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#333',
+        backgroundColor: '#F39C12', // Amarelo quente, remetendo ao sol
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
     },
     buttonText: {
-        color: '#fff',
+        color: '#FFFFFF', // Branco para contraste com o botão
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -102,11 +108,11 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     loginText: {
-        color: '#666',
+        color: '#6C3483', // Roxo suave para consistência
         marginRight: 5,
     },
     loginLink: {
-        color: '#4285F4',
+        color: '#D35400', // Laranja queimado para o link
         fontWeight: 'bold',
     },
 });
