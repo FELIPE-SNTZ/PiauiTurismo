@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import {View,Text,StyleSheet,Image,TextInput,TouchableOpacity,FlatList,ImageBackground,ScrollView,
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const categories = [
   { id: '1', name: 'Praias', icon: require('../assets/tilhas.jpeg') },
   { id: '2', name: 'Montanhas', icon: require('../assets/tilhas.jpeg') },
   { id: '3', name: 'Cultura', icon: require('../assets/tilhas.jpeg') },
   { id: '4', name: 'Gastronomia', icon: require('../assets/tilhas.jpeg') },
-  { id: '5', name: 'Gastronomia', icon: require('../assets/tilhas.jpeg') },
 ];
 
 const cards = [
@@ -21,8 +29,6 @@ const popularPlaces = [
   { id: '1', title: 'Praia do Atalaia', image: require('../assets/tilhas.jpeg') },
   { id: '2', title: 'Cachoeira do Urubu', image: require('../assets/tilhas.jpeg') },
   { id: '3', title: 'Restaurante Flutuante', image: require('../assets/tilhas.jpeg') },
-  { id: '4', title: 'Restaurante Flutuante', image: require('../assets/tilhas.jpeg') },
-  { id: '5', title: 'Restaurante Flutuante', image: require('../assets/tilhas.jpeg') },
 ];
 
 export default function HomeScreen({ navigation }) {
@@ -36,15 +42,15 @@ export default function HomeScreen({ navigation }) {
   );
 
   const renderCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={item.image} style={styles.cardImageSmall} />
+    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Detalhes', { item })}>
+      <Image source={item.image} style={styles.cardImage} />
       <View style={styles.cardContent}>
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardDescription}>
-          Localizada a aproximadamente 338 Km de Teresina, pela BR-343, destaca-se como uma das cidades de maior crescimento econômico no país.
+          Local turístico localizado no Piauí, perfeito para visitantes que buscam cultura, natureza ou gastronomia local.
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderPopularPlace = ({ item }) => (
@@ -55,136 +61,162 @@ export default function HomeScreen({ navigation }) {
   );
 
   return (
-<ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
-  <ImageBackground
-    source={require('../assets/ponte.jpg')}
-    style={styles.header}
-  >
-    <View style={styles.headerContent}>
-      <TouchableOpacity>
-        <Image
-          source={require('../assets/logo.png')}
-          style={styles.logo}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Image
-          source={require('../assets/iconuser.png')}
-          style={styles.userIcon}
-        />
-      </TouchableOpacity>
-    </View>
-    <View style={styles.searchBarContainer}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Pesquisar"
-        placeholderTextColor="#000"
-        value={search}
-        onChangeText={setSearch}
+    <View style={styles.container}>
+      <FlatList
+        data={cards}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <>
+            <View style={styles.headerContainer}>
+              <ImageBackground
+                source={require('../assets/ponte.jpg')}
+                style={styles.header}
+                imageStyle={styles.headerImage}
+              >
+                <View style={styles.overlay} />
+                <View style={styles.headerContent}>
+                  <Image source={require('../assets/logo.png')} style={styles.logo} />
+                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Image source={require('../assets/iconuser.png')} style={styles.userIcon} />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.searchBarContainer}>
+                  <TextInput
+                    style={styles.searchBar}
+                    placeholder="Pesquisar destinos..."
+                    placeholderTextColor="#666"
+                    value={search}
+                    onChangeText={setSearch}
+                  />
+                </View>
+              </ImageBackground>
+            </View>
+
+            <Text style={styles.sectionTitle}>Categorias</Text>
+            <FlatList
+              data={categories}
+              renderItem={renderCategory}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.categoriesContainer}
+            />
+
+            <Text style={styles.sectionTitle}>Mais Visitados</Text>
+            <FlatList
+              data={popularPlaces}
+              renderItem={renderPopularPlace}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.popularContainer}
+            />
+          </>
+        }
+        renderItem={renderCard}
+        showsVerticalScrollIndicator={false}
       />
+
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('Home')}>
+          <Ionicons name="home" size={24} color="#F39C12" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('Favorites')}>
+          <Ionicons name="heart" size={24} color="#F39C12" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('Map')}>
+          <Ionicons name="map" size={24} color="#F39C12" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerItem} onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name="settings" size={24} color="#F39C12" />
+        </TouchableOpacity>
+      </View>
     </View>
-  </ImageBackground>
-
-  <View style={styles.categoriesContainer}>
-    <FlatList
-      data={categories}
-      renderItem={renderCategory}
-      keyExtractor={(item) => item.id}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      nestedScrollEnabled={true} 
-    />
-  </View>
-
-  <View style={styles.popularPlacesContainer}>
-    <Text style={[styles.sectionTitle, { textAlign: 'center', fontSize: 22, fontFamily: 'serif' }]}>Mais Visitados</Text>
-    <FlatList
-      data={popularPlaces}
-      renderItem={renderPopularPlace}
-      keyExtractor={(item) => item.id}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.popularContainer}
-      nestedScrollEnabled={true} 
-    />
-  </View>
-
-  <View style={styles.cardsContainer}>
-    <FlatList
-      data={cards}
-      renderItem={renderCard}
-      keyExtractor={(item) => item.id}
-      showsVerticalScrollIndicator={false}
-      nestedScrollEnabled={true} 
-    />
-  </View>
-</ScrollView>
-)
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
-    paddingTop: 40,
+    backgroundColor: '#FFF8F0',
+  },
+  headerContainer: {
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    overflow: 'hidden',
+    marginBottom: 10,
   },
   header: {
-    height: 190,
+    height: 220,
     justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    paddingBottom: 10,
+    padding: 20,
+  },
+  headerImage: {
+    resizeMode: 'cover',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   headerContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+  },
+  logo: {
+    width: 50,
+    height: 50,
   },
   userIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
   },
-  logo: {
-    width: 50,
-    height: 50,
+  searchBarContainer: {
+    marginTop: 10,
   },
   searchBar: {
     height: 40,
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#fff',
     borderRadius: 20,
     paddingHorizontal: 15,
     fontSize: 16,
     borderWidth: 1,
     borderColor: '#ddd',
   },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#D35400',
+    marginLeft: 15,
+    marginTop: 15,
+  },
   categoriesContainer: {
-    marginVertical: 10,
+    paddingVertical: 10,
     paddingHorizontal: 10,
   },
   category: {
     alignItems: 'center',
-    marginHorizontal: 10,
+    backgroundColor: '#FFE0B2',
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 10,
+    width: 100,
   },
   categoryIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 50,
+    height: 50,
     marginBottom: 5,
   },
   categoryText: {
     fontSize: 14,
-    color: '#333',
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 10,
-    marginVertical: 10,
+    color: '#BF360C',
+    fontWeight: '600',
+    textAlign: 'center',
   },
   popularContainer: {
     paddingHorizontal: 10,
+    paddingBottom: 10,
   },
   popularCard: {
     marginRight: 15,
@@ -202,61 +234,42 @@ const styles = StyleSheet.create({
     marginTop: 5,
     textAlign: 'center',
   },
-  cardsContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 20,
-  },
   card: {
-    flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 10,
+    marginHorizontal: 15,
     marginBottom: 15,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-    padding: 10,
-  },
-  cardImageSmall: {
-    width: 100,
-    height: 100,
     borderRadius: 10,
-    marginRight: 10,
+    overflow: 'hidden',
+    elevation: 3,
+  },
+  cardImage: {
+    width: '100%',
+    height: 160,
   },
   cardContent: {
-    flex: 1,
-    justifyContent: 'center',
+    padding: 10,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#666',
+    marginTop: 5,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 60,
-    backgroundColor: '#fff',
+    height: 70,
+    backgroundColor: '#FFF0E0',
     borderTopWidth: 1,
     borderColor: '#ddd',
   },
-  footerIcon: {
-    width: 30,
-    height: 30,
-  },
-  popularPlacesContainer: {
-    marginBottom: 20,
-  },
-  cardsContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 20,
+  footerItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
